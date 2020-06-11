@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdtprojectproperties>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.IncludePaths">
+<language name="C Source File">
+<includepath>Inc</includepath>
+<includepath>Fs</includepath>
+<includepath>Drivers/BSP/STM32F4xx_Nucleo_144</includepath>
+<includepath>Drivers/CMSIS/Device/ST/STM32F4xx/Include</includepath>
+<includepath>Drivers/CMSIS/Include</includepath>
+<includepath>Drivers/STM32F4xx_HAL_Driver/Inc</includepath>
+<includepath>Drivers/STM32F4xx_HAL_Driver/Inc/Legacy</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/include</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/apps/http</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/lwip</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/apps</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/priv</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/prot</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/netif</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/netif/ppp</includepath>
+<includepath>Middlewares/Third_Party/LwIP/system</includepath>
+<includepath>Middlewares/Third_Party/LwIP/system/arch</includepath>
+
+</language>
+<language name="S">
+<includepath>Inc</includepath>
+<includepath>Fs</includepath>
+<includepath>Drivers/BSP/STM32F4xx_Nucleo_144</includepath>
+<includepath>Drivers/CMSIS/Device/ST/STM32F4xx/Include</includepath>
+<includepath>Drivers/CMSIS/Include</includepath>
+<includepath>Drivers/STM32F4xx_HAL_Driver/Inc</includepath>
+<includepath>Drivers/STM32F4xx_HAL_Driver/Inc/Legacy</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/include</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/apps/http</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/lwip</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/apps</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/priv</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/prot</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/netif</includepath>
+<includepath>Middlewares/Third_Party/LwIP/src/include/netif/ppp</includepath>
+<includepath>Middlewares/Third_Party/LwIP/system</includepath>
+<includepath>Middlewares/Third_Party/LwIP/system/arch</includepath>
+
+</language>
+<language name="Object File">
+
+</language>
+<language name="s">
+
+</language>
+<language name="Assembly Source File">
+
+</language>
+</section>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.Macros">
+<language name="C Source File">
+<macro>
+<name>USE_HAL_DRIVER</name><value/>
+</macro>
+<macro>
+<name>STM32F429xx</name><value/>
+</macro>
+<macro>
+<name>USE_STM32F4XX_NUCLEO_144</name><value/>
+</macro>
+
+</language>
+<language name="S">
+<macro>
+<name>USE_HAL_DRIVER</name><value/>
+</macro>
+<macro>
+<name>STM32F429xx</name><value/>
+</macro>
+<macro>
+<name>USE_STM32F4XX_NUCLEO_144</name><value/>
+</macro>
+
+</language>
+<language name="Object File">
+
+</language>
+<language name="s">
+
+</language>
+<language name="Assembly Source File">
+
+</language>
+</section>
+</cdtprojectproperties>
