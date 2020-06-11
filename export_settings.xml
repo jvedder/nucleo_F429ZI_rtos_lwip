@@ -4,56 +4,38 @@
 <language name="C Source File">
 <includepath>Inc</includepath>
 <includepath>Fs</includepath>
-<includepath>Drivers/BSP/STM32F4xx_Nucleo_144</includepath>
 <includepath>Drivers/CMSIS/Device/ST/STM32F4xx/Include</includepath>
 <includepath>Drivers/CMSIS/Include</includepath>
 <includepath>Drivers/STM32F4xx_HAL_Driver/Inc</includepath>
-<includepath>Drivers/STM32F4xx_HAL_Driver/Inc/Legacy</includepath>
-<includepath>Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</includepath>
-<includepath>Middlewares/Third_Party/FreeRTOS/Source/include</includepath>
-<includepath>Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/apps/http</includepath>
+<includepath>Drivers/BSP/STM32F4xx_Nucleo_144</includepath>
 <includepath>Middlewares/Third_Party/LwIP/src/include</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/lwip</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/apps</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/priv</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/prot</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/netif</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/netif/ppp</includepath>
 <includepath>Middlewares/Third_Party/LwIP/system</includepath>
-<includepath>Middlewares/Third_Party/LwIP/system/arch</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/include</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</includepath>
 
 </language>
 <language name="S">
 <includepath>Inc</includepath>
 <includepath>Fs</includepath>
-<includepath>Drivers/BSP/STM32F4xx_Nucleo_144</includepath>
 <includepath>Drivers/CMSIS/Device/ST/STM32F4xx/Include</includepath>
 <includepath>Drivers/CMSIS/Include</includepath>
 <includepath>Drivers/STM32F4xx_HAL_Driver/Inc</includepath>
-<includepath>Drivers/STM32F4xx_HAL_Driver/Inc/Legacy</includepath>
-<includepath>Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</includepath>
-<includepath>Middlewares/Third_Party/FreeRTOS/Source/include</includepath>
-<includepath>Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/apps/http</includepath>
+<includepath>Drivers/BSP/STM32F4xx_Nucleo_144</includepath>
 <includepath>Middlewares/Third_Party/LwIP/src/include</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/lwip</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/apps</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/priv</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/lwip/prot</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/netif</includepath>
-<includepath>Middlewares/Third_Party/LwIP/src/include/netif/ppp</includepath>
 <includepath>Middlewares/Third_Party/LwIP/system</includepath>
-<includepath>Middlewares/Third_Party/LwIP/system/arch</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/include</includepath>
+<includepath>Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</includepath>
 
 </language>
 <language name="Object File">
 
 </language>
-<language name="s">
+<language name="Assembly Source File">
 
 </language>
-<language name="Assembly Source File">
+<language name="s">
 
 </language>
 </section>
@@ -85,10 +67,10 @@
 <language name="Object File">
 
 </language>
-<language name="s">
+<language name="Assembly Source File">
 
 </language>
-<language name="Assembly Source File">
+<language name="s">
 
 </language>
 </section>
