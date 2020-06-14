@@ -52,7 +52,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
-#include "stm32f4xx_nucleo_144.h"
+#include "bsp_stm32f429zi_nucleo.h"
    
 #include "cmsis_os.h"
 

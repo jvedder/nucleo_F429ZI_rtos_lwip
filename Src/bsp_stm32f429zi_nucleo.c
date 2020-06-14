@@ -38,7 +38,7 @@
   */ 
   
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_nucleo_144.h"
+#include <bsp_stm32f429zi_nucleo.h>
 
 
 /** @defgroup BSP BSP

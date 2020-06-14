@@ -1,6 +1,6 @@
 /** 
   ******************************************************************************
-  * @file    stm32f4xx_nucleo_144.h
+  * @file    bsp_nucleo_stm32f429zi.h
   * @author  MCD Application Team
   * @brief   This file contains definitions for:
   *          - LEDs and push-button available on STM32F4XX-Nucleo-144 Kit 
