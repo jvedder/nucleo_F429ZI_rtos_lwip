@@ -84,6 +84,12 @@ int main(void)
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
   
+  /* Configure the LEDs and Push Button */
+  BSP_LED_Init(LED_GREEN);
+  BSP_LED_Init(LED_RED);
+  BSP_LED_Init(LED_BLUE);
+  BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
+
   /* Init thread */
 #if defined(__GNUC__)
   osThreadDef(Start, StartThread, osPriorityNormal, 0, configMINIMAL_STACK_SIZE * 5);
@@ -128,7 +134,21 @@ static void StartThread(void const * argument)
   for( ;; )
   {
     /* Delete the Init Thread */ 
-    osThreadTerminate(NULL);
+   // osThreadTerminate(NULL);
+
+   BSP_LED_Toggle(LED_RED);
+   osDelay(250);
+   BSP_LED_Toggle(LED_BLUE);
+   osDelay(250);
+   BSP_LED_Toggle(LED_GREEN);
+   osDelay(250);
+   if (BSP_PB_GetState(BUTTON_USER))
+   {
+       BSP_LED_On(LED_RED);
+       BSP_LED_On(LED_BLUE);
+       BSP_LED_On(LED_GREEN);
+       osDelay(250);
+   }
   }
 }
 
