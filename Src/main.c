@@ -84,11 +84,11 @@ int main(void)
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
   
-  /* Configure the LEDs and Push Button */
-  BSP_LED_Init(LED_GREEN);
-  BSP_LED_Init(LED_RED);
-  BSP_LED_Init(LED_BLUE);
-  BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
+  /* Configure the board-specific LEDs, Button, and ST-Link UART */
+  BSP_Init();
+
+  /* Hello world */
+  HAL_UART_Transmit(&huart3, (uint8_t *)"\r\nSTM32F429ZI Power Up\r\n", 24, 1000);
 
   /* Init thread */
 #if defined(__GNUC__)

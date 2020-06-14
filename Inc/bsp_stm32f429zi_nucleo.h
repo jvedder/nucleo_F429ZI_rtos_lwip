@@ -1,12 +1,11 @@
 /** 
   ******************************************************************************
-  * @file    bsp_nucleo_stm32f429zi.h
+  * @file    bsp_stm32f429zi_nucleo.h
   * @author  MCD Application Team
-  * @brief   This file contains definitions for:
-  *          - LEDs and push-button available on STM32F4XX-Nucleo-144 Kit 
-  *            from STMicroelectronics
-  *          - LCD, joystick and microSD available on Adafruit 1.8" TFT LCD 
-  *            shield (reference ID 802)
+  * @brief   This file contains Board Support Package (BSP) definitions for
+  *          Nucleo-F429ZI from STMicroelectronics:
+  *          - LEDs and push-button
+  *          - UART3 for ST LInk Serial Port
   ******************************************************************************
   * @attention
   *
@@ -38,8 +37,8 @@
   */ 
   
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32F4XX_NUCLEO_144_H
-#define __STM32F4XX_NUCLEO_144_H
+#ifndef __BSP_STM32f429ZI_NUCLEO_H
+#define __BSP_STM32f429ZI_NUCLEO_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -48,24 +47,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
    
-/* To be defined only if the board is provided with the related shield */
-/* https://www.adafruit.com/products/802 */
-#ifndef ADAFRUIT_TFT_JOY_SD_ID802
-#define ADAFRUIT_TFT_JOY_SD_ID802
-#endif
-   
-/** @addtogroup BSP
-  * @{
-  */
-
-/** @addtogroup STM32F4XX_NUCLEO_144
-  * @{
-  */
-
-/** @addtogroup STM32F4XX_NUCLEO_144_LOW_LEVEL
-  * @{
-  */ 
-
 /** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Types STM32F4XX NUCLEO 144 LOW LEVEL Exported Types
   * @{
   */
@@ -109,13 +90,6 @@ typedef enum
 /** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Constants STM32F4XX NUCLEO 144 LOW LEVEL Exported Constants
   * @{
   */ 
-
-/** 
-  * @brief Define for STM32F4XX_NUCLEO_144 board  
-  */ 
-#if !defined (USE_STM32F4XX_NUCLEO_144)
- #define USE_STM32F4XX_NUCLEO_144
-#endif
 
 /** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_LED STM32F4XX NUCLEO 144 LOW LEVEL LED
   * @{
@@ -173,10 +147,17 @@ typedef enum
 
 
 /**
+ * UART3 pins for ST-Link Serial Port
+ */
+#define STLINK_RX_Pin GPIO_PIN_8
+#define STLINK_RX_GPIO_Port GPIOD
+#define STLINK_TX_Pin GPIO_PIN_9
+#define STLINK_TX_GPIO_Port GPIOD
+
+
+/**
   * @brief OTG_FS1 OVER_CURRENT and POWER_SWITCH Pins definition
   */
-
-
 #define OTG_FS1_OVER_CURRENT_PIN                  GPIO_PIN_7
 #define OTG_FS1_OVER_CURRENT_PORT                 GPIOG
 #define OTG_FS1_OVER_CURRENT_PORT_CLK_ENABLE()     __HAL_RCC_GPIOG_CLK_ENABLE()
@@ -185,170 +166,27 @@ typedef enum
 #define OTG_FS1_POWER_SWITCH_PORT                 GPIOG
 #define OTG_FS1_POWER_SWITCH_PORT_CLK_ENABLE()     __HAL_RCC_GPIOG_CLK_ENABLE()
 
-/**
-  * @}
-  */ 
+extern UART_HandleTypeDef huart3;
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_BUS STM32F4XX NUCLEO 144 LOW LEVEL BUS
-  * @{
-  */
-/*############################### SPI_A #######################################*/
-#ifdef HAL_SPI_MODULE_ENABLED
+void BSP_Init(void);
+void BSP_LED_Init(Led_TypeDef Led);
+void BSP_LED_DeInit(Led_TypeDef Led);
+void BSP_LED_On(Led_TypeDef Led);
+void BSP_LED_Off(Led_TypeDef Led);
+void BSP_LED_Toggle(Led_TypeDef Led);
+void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode);
+void BSP_PB_DeInit(Button_TypeDef Button);
+uint32_t BSP_PB_GetState(Button_TypeDef Button);
+void BSP_UART_Init(void);
+void BSP_Error_Handler(void);
 
-#define NUCLEO_SPIx                                     SPI1
-#define NUCLEO_SPIx_CLK_ENABLE()                        __HAL_RCC_SPI1_CLK_ENABLE()
 
-#define NUCLEO_SPIx_SCK_AF                              GPIO_AF5_SPI1
-#define NUCLEO_SPIx_SCK_GPIO_PORT                       GPIOA
-#define NUCLEO_SPIx_SCK_PIN                             GPIO_PIN_5
-#define NUCLEO_SPIx_SCK_GPIO_CLK_ENABLE()               __HAL_RCC_GPIOA_CLK_ENABLE()
-#define NUCLEO_SPIx_SCK_GPIO_CLK_DISABLE()              __HAL_RCC_GPIOA_CLK_DISABLE()
 
-#define NUCLEO_SPIx_MISO_MOSI_AF                        GPIO_AF5_SPI1
-#define NUCLEO_SPIx_MISO_MOSI_GPIO_PORT                 GPIOA
-#define NUCLEO_SPIx_MISO_MOSI_GPIO_CLK_ENABLE()         __HAL_RCC_GPIOA_CLK_ENABLE()
-#define NUCLEO_SPIx_MISO_MOSI_GPIO_CLK_DISABLE()        __HAL_RCC_GPIOA_CLK_DISABLE()
-#define NUCLEO_SPIx_MISO_PIN                            GPIO_PIN_6
-#define NUCLEO_SPIx_MOSI_PIN                            GPIO_PIN_7
-/* Maximum Timeout values for flags waiting loops. These timeout are not based
-   on accurate values, they just guarantee that the application will not remain
-   stuck if the SPI communication is corrupted.
-   You may modify these timeout values depending on CPU frequency and application
-   conditions (interrupts routines ...). */   
-#define NUCLEO_SPIx_TIMEOUT_MAX                   1000
-
-#define NUCLEO_SPIx_CS_GPIO_PORT                        GPIOD
-#define NUCLEO_SPIx_CS_PIN                              GPIO_PIN_14
-#define NUCLEO_SPIx_CS_GPIO_CLK_ENABLE()                __HAL_RCC_GPIOD_CLK_ENABLE()
-#define NUCLEO_SPIx_CS_GPIO_CLK_DISABLE()               __HAL_RCC_GPIOD_CLK_DISABLE()
-
-#define SPIx__CS_LOW()       HAL_GPIO_WritePin(NUCLEO_SPIx_CS_GPIO_PORT, NUCLEO_SPIx_CS_PIN, GPIO_PIN_RESET)
-#define SPIx__CS_HIGH()      HAL_GPIO_WritePin(NUCLEO_SPIx_CS_GPIO_PORT, NUCLEO_SPIx_CS_PIN, GPIO_PIN_SET)
-
-/**
-  * @brief  SD Control Lines management
-  */
-#define SD_CS_LOW()       HAL_GPIO_WritePin(SD_CS_GPIO_PORT, SD_CS_PIN, GPIO_PIN_RESET)
-#define SD_CS_HIGH()      HAL_GPIO_WritePin(SD_CS_GPIO_PORT, SD_CS_PIN, GPIO_PIN_SET)
-
-/**
-  * @brief  LCD Control Lines management
-  */
-#define LCD_CS_LOW()      HAL_GPIO_WritePin(LCD_CS_GPIO_PORT, LCD_CS_PIN, GPIO_PIN_RESET)
-#define LCD_CS_HIGH()     HAL_GPIO_WritePin(LCD_CS_GPIO_PORT, LCD_CS_PIN, GPIO_PIN_SET)
-#define LCD_DC_LOW()      HAL_GPIO_WritePin(LCD_DC_GPIO_PORT, LCD_DC_PIN, GPIO_PIN_RESET)
-#define LCD_DC_HIGH()     HAL_GPIO_WritePin(LCD_DC_GPIO_PORT, LCD_DC_PIN, GPIO_PIN_SET)
-     
-/**
-  * @brief  SD Control Interface pins (shield D4)
-  */
-#define SD_CS_PIN                                 GPIO_PIN_14
-#define SD_CS_GPIO_PORT                           GPIOF
-#define SD_CS_GPIO_CLK_ENABLE()                 __HAL_RCC_GPIOF_CLK_ENABLE()
-#define SD_CS_GPIO_CLK_DISABLE()                __HAL_RCC_GPIOF_CLK_DISABLE()
-
-/**
-  * @brief  LCD Control Interface pins (shield D10)
-  */
-#define LCD_CS_PIN                                 GPIO_PIN_14
-#define LCD_CS_GPIO_PORT                           GPIOD
-#define LCD_CS_GPIO_CLK_ENABLE()                 __HAL_RCC_GPIOD_CLK_ENABLE()
-#define LCD_CS_GPIO_CLK_DISABLE()                __HAL_RCC_GPIOD_CLK_DISABLE()
-    
-/**
-  * @brief  LCD Data/Command Interface pins (shield D8)
-  */
-#define LCD_DC_PIN                                 GPIO_PIN_12
-#define LCD_DC_GPIO_PORT                           GPIOF
-#define LCD_DC_GPIO_CLK_ENABLE()                 __HAL_RCC_GPIOF_CLK_ENABLE()
-#define LCD_DC_GPIO_CLK_DISABLE()                __HAL_RCC_GPIOF_CLK_DISABLE()
-
-#endif /* HAL_SPI_MODULE_ENABLED */
-
-/*################################ ADCx for Nucleo 144 board ######################################*/
-/**
-  * @brief  ADCx Interface pins
-  *         used to detect motion of Joystick available on Adafruit 1.8" TFT shield
-  */
-  
-/* For some Nucleo144 boards, Arduino UNO pin7 (A3) is connected to PF3 in others to PC01 */ 
-#if defined(ADC3) 
-#define NUCLEO_ADCx                          ADC3
-#define NUCLEO_ADCx_CLK_ENABLE()             __HAL_RCC_ADC3_CLK_ENABLE()
-#define NUCLEO_ADCx_CLK_DISABLE()            __HAL_RCC_ADC3_CLK_DISABLE()
-
-#define NUCLEO_ADCx_CHANNEL                  ADC_CHANNEL_9
-#define NUCLEO_ADCx_GPIO_PORT                GPIOF
-#define NUCLEO_ADCx_GPIO_PIN                 GPIO_PIN_3
-#define NUCLEO_ADCx_GPIO_CLK_ENABLE()        __HAL_RCC_GPIOF_CLK_ENABLE()
-#define NUCLEO_ADCx_GPIO_CLK_DISABLE()       __HAL_RCC_GPIOF_CLK_DISABLE()
-
-#else
-#define NUCLEO_ADCx                          ADC1
-#define NUCLEO_ADCx_CLK_ENABLE()             __HAL_RCC_ADC1_CLK_ENABLE()
-#define NUCLEO_ADCx_CLK_DISABLE()            __HAL_RCC_ADC1_CLK_DISABLE()
-#define NUCLEO_ADCx_CHANNEL                  ADC_CHANNEL_11
-   
-#define NUCLEO_ADCx_GPIO_PORT                GPIOC
-#define NUCLEO_ADCx_GPIO_PIN                 GPIO_PIN_1
-#define NUCLEO_ADCx_GPIO_CLK_ENABLE()        __HAL_RCC_GPIOC_CLK_ENABLE()
-#define NUCLEO_ADCx_GPIO_CLK_DISABLE()       __HAL_RCC_GPIOC_CLK_DISABLE()
-#endif /* HAL_ADC_MODULE_ENABLED */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Macros STM32F4XX NUCLEO 144 LOW LEVEL Exported Macros
-  * @{
-  */  
-/**
-  * @}
-  */ 
-
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Functions STM32F4XX NUCLEO 144 LOW LEVEL Exported Functions
-  * @{
-  */
-uint32_t         BSP_GetVersion(void);  
-void             BSP_LED_Init(Led_TypeDef Led);
-void             BSP_LED_DeInit(Led_TypeDef Led);
-void             BSP_LED_On(Led_TypeDef Led);
-void             BSP_LED_Off(Led_TypeDef Led);
-void             BSP_LED_Toggle(Led_TypeDef Led);
-void             BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode);
-void             BSP_PB_DeInit(Button_TypeDef Button);
-uint32_t         BSP_PB_GetState(Button_TypeDef Button);
-#ifdef HAL_ADC_MODULE_ENABLED
-uint8_t          BSP_JOY_Init(void);
-JOYState_TypeDef BSP_JOY_GetState(void);
-void             BSP_JOY_DeInit(void);
-#endif /* HAL_ADC_MODULE_ENABLED */
-
-  
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __STM32F4XX_NUCLEO_144_H */
+#endif /* __BSP_STM32f429ZI_NUCLEO_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
