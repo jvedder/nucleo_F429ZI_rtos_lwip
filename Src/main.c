@@ -52,6 +52,7 @@
 #include "lwip/tcpip.h"
 #include "app_ethernet.h"
 #include "httpserver-netconn.h"
+#include <stdio.h>
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -88,7 +89,8 @@ int main(void)
   BSP_Init();
 
   /* Hello world */
-  HAL_UART_Transmit(&huart3, (uint8_t *)"\r\nSTM32F429ZI Power Up\r\n", 24, 1000);
+  printf("\r\nSTM32F429ZI Power Up\r\n");
+  printf("Build " __DATE__ " " __TIME__ "\r\n");
 
   /* Init thread */
 #if defined(__GNUC__)
