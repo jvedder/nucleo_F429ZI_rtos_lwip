@@ -1,0 +1,64 @@
+CHROME--------------------------------
+GET /foo HTTP/1.1
+Host: 192.168.1.150
+Connection: keep-alive
+Cache-Control: max-age=0
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+
+FIREFOX--------------------------------
+GET /favicon.ico HTTP/1.1
+Host: 192.168.1.150
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0
+Accept: image/webp,*/*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+IE-----------------------------
+GET /inchtml-pages-stm32_connectivity_files/pixel.gif HTTP/1.1
+Accept: image/png, image/svg+xml, image/jxr, image/*;q=0.8, */*;q=0.5
+Referer: http://192.168.1.150/
+Accept-Language: en-US,en;q=0.5
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko
+Accept-Encoding: gzip, deflate
+Host: 192.168.1.150
+Connection: Keep-Alive
+
+IE-----------------------------
+GET /favicon.ico HTTP/1.1
+Accept: */*
+UA-CPU: AMD64
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; Trident/7.0; rv:11.0) like Gecko
+Host: 192.168.1.150
+Connection: Keep-Alive
+
+EDGE-----------------------------
+GET /inchtml-pages-stm32_connectivity_files/pixel.gif HTTP/1.1
+Referer: http://192.168.1.150/
+Accept: image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362
+Host: 192.168.1.150
+Connection: Keep-Alive
+
+
+EDGE-----------------------------
+GET /STM32F4xx_files/stm32.jpg
+<404>
+GET /favicon.ico HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362
+Host: 192.168.1.150
+DNT: 1
+Connection: Keep-Alive
+

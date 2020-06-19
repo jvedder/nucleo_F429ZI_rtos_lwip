@@ -52,7 +52,9 @@
 #include "lwip/tcpip.h"
 #include "app_ethernet.h"
 #include "httpserver-netconn.h"
+#include "httpclient-netconn.h"
 #include <stdio.h>
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -120,10 +122,15 @@ static void StartThread(void const * argument)
   
   /* Initialize the LwIP stack */
   Netif_Config();
-  
+
+#if 0
   /* Initialize webserver demo */
   http_server_netconn_init();
+#endif
   
+  /* Initialize my webclient */
+  http_client_netconn_init();
+
   /* Notify user about the network interface config */
   User_notification(&gnetif);
   
@@ -135,22 +142,16 @@ static void StartThread(void const * argument)
 
   for( ;; )
   {
-    /* Delete the Init Thread */ 
-   // osThreadTerminate(NULL);
+      /* LED heart beat */
+      BSP_LED_On(LED_RED);
+      osDelay(200);
+      BSP_LED_Off(LED_RED);
+      osDelay(200);
 
-   BSP_LED_Toggle(LED_RED);
-   osDelay(250);
-   BSP_LED_Toggle(LED_BLUE);
-   osDelay(250);
-   BSP_LED_Toggle(LED_GREEN);
-   osDelay(250);
-   if (BSP_PB_GetState(BUTTON_USER))
-   {
-       BSP_LED_On(LED_RED);
-       BSP_LED_On(LED_BLUE);
-       BSP_LED_On(LED_GREEN);
-       osDelay(250);
-   }
+      BSP_LED_On(LED_RED);
+      osDelay(200);
+      BSP_LED_Off(LED_RED);
+      osDelay(400);
   }
 }
 
