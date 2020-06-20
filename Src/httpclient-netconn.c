@@ -13,6 +13,7 @@
 #include "main.h"
 #include "lwip/apps/fs.h"
 #include "string.h"
+#include "api_key.h"
 #include "httpclient-netconn.h"
 #include "cmsis_os.h"
 
@@ -49,13 +50,12 @@ static void http_client_netconn_request( )
     char *buf;
     u16_t buflen;
 
-    printf( "http_client_netconn_request()\r\n" );
+    printf( "http_client_netconn_request() starting\r\n" );
 
     printf( "netconn_new()\r\n" );
 
     /* Create a new TCP connection handle */
     conn = netconn_new( NETCONN_TCP );
-
     if ( conn != NULL )
     {
         /* define the server address */
@@ -77,66 +77,78 @@ static void http_client_netconn_request( )
             err = netconn_write( conn, (const unsigned char* )REQUEST, (size_t )sizeof(REQUEST), NETCONN_NOCOPY );
             if ( err == ERR_OK )
             {
-                printf( "netconn_recv()\r\n" );
-
-                /* Read the data from the port, blocking if nothing yet there yet. */
-                err = netconn_recv( conn, &inbuf );
-                if ( err == ERR_OK )
+                printf( "start while loop\r\n" );
+                while(1)
                 {
-                    if ( netconn_err( conn ) == ERR_OK )
+                    printf( "netconn_recv()\r\n" );
+
+                    /* Read the data from the port, blocking if nothing yet there yet. */
+                    err = netconn_recv( conn, &inbuf );
+                    if ( err == ERR_OK )
                     {
-                        printf( "netbuf_data()\r\n" );
-
-                        err = netbuf_data( inbuf, (void**) &buf, &buflen );
-                        if ( err == ERR_OK )
+                        if( netconn_err( conn ) == ERR_OK )
                         {
-                            printf( "length: %d\r\n", buflen );
-                            printf( "[buf]\r\n" );
-                            HAL_UART_Transmit( &huart3, (uint8_t*) buf, buflen,
-                                    1000 );
-                            printf( "[/buf]\r\n" );
-
-                            /* release the biffer */
-                            netbuf_delete( inbuf );
-
-                            /* close the connection */
-                            printf( "netconn_close()\r\n" );
-                            err = netconn_close( conn );
-                            if ( err != ERR_OK )
+                            printf( "netbuf_data()\r\n" );
+                            err = netbuf_data( inbuf, (void**) &buf, &buflen );
+                            if ( err == ERR_OK )
                             {
-                                printf( "netconn_close() failed\r\n" );
+                                printf( "length: %d\r\n", buflen );
+                                printf( "[buf start]\r\n" );
+                                HAL_UART_Transmit( &huart3, (uint8_t*) buf, buflen,
+                                        1000 );
+                                printf( "[buf end]\r\n" );
+
+                                /* release the buffer */
+                                netbuf_delete( inbuf );
+                            }
+                            else /* netbuf_data(..) != ERR_OK */
+                            {
+                                printf( "netbuf_data() failed: %d\r\n", err );
+                                break;
                             }
                         }
-                        else
+                        else /* netconn_err(..) != ERR_OK */
                         {
-                            printf( "netbuf_data() failed\r\n" );
+                            printf( "netconn_err() failed: %d\r\n", err );
+                            break;
                         }
                     }
-                    else
+                    else /* netconn_recv(..) != ERR_OK */
                     {
-                        printf( "netconn_err() failed\r\n" );
+                        printf( "netconn_recv() failed: %d\r\n", err );
+                        break;
                     }
                 }
-                else
-                {
-                    printf( "netconn_recv() failed\r\n" );
-                }
+                printf( "exit while loop\r\n" );
+
             }
-            else
+            else /* netconn_write(..) != ERR_OK */
             {
-                printf( "netconn_write() failed\r\n" );
+                printf( "netconn_write() failed: %d\r\n", err );
             }
+
+            /* close the connection */
+
+            printf( "netconn_close()\r\n" );
+            err = netconn_close( conn );
+            if ( err != ERR_OK )
+            {
+                printf( "netconn_close() failed\r\n" );
+            }
+
         }
-        else
+        else /* netconn_connect(..) != ERR_OK */
         {
             printf( "netconn_connect() failed: %d\r\n", err );
         }
-        printf( "http_client_netconn_request() complete\r\n" );
+        netconn_delete(conn);
     }
     else
     {
         printf( "netconn_new() returned NULL\r\n" );
     }
+
+    printf( "http_client_netconn_request() exiting\r\n" );
 }
 
 /**

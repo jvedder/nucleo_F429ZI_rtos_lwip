@@ -3,3 +3,7 @@
 
 #ignore the build output folder
 Debug/
+
+#do not include key material
+api_key.h
+
