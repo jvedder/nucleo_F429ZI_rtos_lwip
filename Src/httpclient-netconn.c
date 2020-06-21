@@ -31,7 +31,7 @@
  * Note: IP address and port are hard-coded here
  * Ref: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
  */
-static const char REQUEST[] = "GET / HTTP/1.1\r\nHost: 192.168.1.33:8080\r\nConnection: close\r\nAccept-Encoding: identity\r\n\r\n";
+static const char REQUEST[] = "GET / HTTP/1.1\r\nHost: 192.168.1.30:8080\r\nConnection: close\r\nAccept-Encoding: identity\r\n\r\n";
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -78,6 +78,7 @@ static void http_client_netconn_request( )
             if ( err == ERR_OK )
             {
                 printf( "start while loop\r\n" );
+
                 while(1)
                 {
                     printf( "netconn_recv()\r\n" );
@@ -118,7 +119,8 @@ static void http_client_netconn_request( )
                         printf( "netconn_recv() failed: %d\r\n", err );
                         break;
                     }
-                }
+                } /* while loop */
+
                 printf( "exit while loop\r\n" );
 
             }
