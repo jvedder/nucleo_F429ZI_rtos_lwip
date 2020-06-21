@@ -15,14 +15,17 @@
 #include <reent.h>
 #include <unistd.h>
 #include <sys/wait.h>
-
+#include "main.h"
 
 
 #define FreeRTOS
 #define MAX_STACK_SIZE 0x2000
+#define USE_UART
 
+#ifndef USE_UART
 extern int __io_putchar(int ch) __attribute__((weak));
 extern int __io_getchar(void) __attribute__((weak));
+#endif
 
 #ifndef FreeRTOS
   register char * stack_ptr asm("sp");
@@ -101,12 +104,17 @@ void _exit (int status)
 
 int _write(int file, char *ptr, int len)
 {
+#ifdef USE_UART
+    HAL_UART_Transmit(&huart3, (uint8_t *)ptr, (uint16_t)len, HAL_MAX_DELAY);
+#else
 	int DataIdx;
 
 		for (DataIdx = 0; DataIdx < len; DataIdx++)
 		{
 		   __io_putchar( *ptr++ );
 		}
+#endif
+
 	return len;
 }
 
@@ -133,13 +141,16 @@ int _lseek(int file, int ptr, int dir)
 
 int _read(int file, char *ptr, int len)
 {
+#ifdef USE_UART
+    HAL_UART_Receive(&huart3, (uint8_t *)ptr, (uint16_t)len, HAL_MAX_DELAY);
+#else
 	int DataIdx;
 
 	for (DataIdx = 0; DataIdx < len; DataIdx++)
 	{
 	  *ptr++ = __io_getchar();
 	}
-
+#endif
    return len;
 }
 
