@@ -22,6 +22,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #define WEBCLIENT_THREAD_PRIO    ( osPriorityAboveNormal )
+#define TS   1
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -50,106 +51,139 @@ static void http_client_netconn_request( )
     char *buf;
     u16_t buflen;
 
+
+    if (TS) printf("[%lu] ", HAL_GetTick());
     printf( "http_client_netconn_request() starting\r\n" );
 
+    if (TS) printf("[%lu] ", HAL_GetTick());
     printf( "netconn_new()\r\n" );
 
     /* Create a new TCP connection handle */
     conn = netconn_new( NETCONN_TCP );
     if ( conn != NULL )
     {
-        /* define the server address */
-        ip_addr_t ipaddr;
-        IP4_ADDR( &ipaddr, 192, 168, 1, 30 );
-        /* 192.168.1.30  = 0xC0 . 0xA8 . 0x01 . 0x1E */
-        //ipaddr.addr = (u32_t) 0xC0A80121;
+        /* define the server address and port */
+        //ip_addr_t ipaddr;
+        //IP4_ADDR( &ipaddr, 192, 168, 1, 30 );
+        /* 192.168.1.30  = 0xC0 . 0xA8 . 0x01 . 0x1E ==> 0x1E01A8C0 */
+        const ip_addr_t ipaddr = { (u32_t) 0x1E01A8C0 };
+        const u16_t port = 8080;
 
+        if (TS) printf("[%lu] ", HAL_GetTick());
         printf( "netconn_connect()\r\n" );
+        printf( "  addr: %8lX, port: %d\r\n", ipaddr.addr, port);
 
-        /* connect to ip address, port 8080 */
-        err = netconn_connect( conn, &ipaddr, 8080 );
-
+        /* connect to ip address and port */
+        err = netconn_connect( conn, &ipaddr, port );
         if ( err == ERR_OK )
         {
+            if (TS) printf("[%lu] ", HAL_GetTick());
             printf( "netconn_write()\r\n" );
 
             /* write the HTTP request to the server */
             err = netconn_write( conn, (const unsigned char* )REQUEST, (size_t )sizeof(REQUEST), NETCONN_NOCOPY );
             if ( err == ERR_OK )
             {
+                if (TS) printf("[%lu] ", HAL_GetTick());
                 printf( "start while loop\r\n" );
 
                 while(1)
                 {
+                    if (TS) printf("[%lu] ", HAL_GetTick());
                     printf( "netconn_recv()\r\n" );
 
                     /* Read the data from the port, blocking if nothing yet there yet. */
                     err = netconn_recv( conn, &inbuf );
                     if ( err == ERR_OK )
                     {
-                        if( netconn_err( conn ) == ERR_OK )
+                        if (TS) printf("[%lu] ", HAL_GetTick());
+                        printf( "netconn_err() #1\r\n" );
+                        err = netconn_err( conn );
+                        if( err != ERR_OK )
                         {
-                            printf( "netbuf_data()\r\n" );
-                            err = netbuf_data( inbuf, (void**) &buf, &buflen );
-                            if ( err == ERR_OK )
-                            {
-                                printf( "length: %d\r\n", buflen );
-                                printf( "[buf start]\r\n" );
-                                HAL_UART_Transmit( &huart3, (uint8_t*) buf, buflen,
-                                        1000 );
-                                printf( "[buf end]\r\n" );
-
-                                /* release the buffer */
-                                netbuf_delete( inbuf );
-                            }
-                            else /* netbuf_data(..) != ERR_OK */
-                            {
-                                printf( "netbuf_data() failed: %d\r\n", err );
-                                break;
-                            }
-                        }
-                        else /* netconn_err(..) != ERR_OK */
-                        {
+                            if (TS) printf("[%lu] ", HAL_GetTick());
                             printf( "netconn_err() failed: %d\r\n", err );
+                            break;
+                        }
+
+                        if (TS) printf("[%lu] ", HAL_GetTick());
+                        printf( "netbuf_data()\r\n" );
+                        err = netbuf_data( inbuf, (void**) &buf, &buflen );
+                        if ( err == ERR_OK )
+                        {
+                            if (TS) printf("[%lu] ", HAL_GetTick());
+                            printf( "length: %d\r\n", buflen );
+                            printf( "#Buffer Start#\r\n" );
+                            HAL_UART_Transmit( &huart3, (uint8_t*) buf, buflen,
+                                    1000 );
+                            printf( "#Buffer End#\r\n" );
+
+                            /* release the buffer */
+                            netbuf_delete( inbuf );
+                        }
+                        else /* netbuf_data(..) != ERR_OK */
+                        {
+                            if (TS) printf("[%lu] ", HAL_GetTick());
+                            printf( "netbuf_data() failed: %d\r\n", err );
                             break;
                         }
                     }
                     else /* netconn_recv(..) != ERR_OK */
                     {
+                        if (TS) printf("[%lu] ", HAL_GetTick());
                         printf( "netconn_recv() failed: %d\r\n", err );
+                        break;
+                    }
+
+                    /* bottom of while loop */
+
+                    if (TS) printf("[%lu] ", HAL_GetTick());
+                    printf( "netconn_err() #2\r\n" );
+                    err =  netconn_err( conn );
+                    if( err != ERR_OK )
+                    {
+                        if (TS) printf("[%lu] ", HAL_GetTick());
+                        printf( "netconn_err() failed: %d\r\n", err );
                         break;
                     }
                 } /* while loop */
 
+                if (TS) printf("[%lu] ", HAL_GetTick());
                 printf( "exit while loop\r\n" );
 
             }
             else /* netconn_write(..) != ERR_OK */
             {
+                if (TS) printf("[%lu] ", HAL_GetTick());
                 printf( "netconn_write() failed: %d\r\n", err );
             }
 
             /* close the connection */
 
+            if (TS) printf("[%lu] ", HAL_GetTick());
             printf( "netconn_close()\r\n" );
             err = netconn_close( conn );
             if ( err != ERR_OK )
             {
+                if (TS) printf("[%lu] ", HAL_GetTick());
                 printf( "netconn_close() failed\r\n" );
             }
 
         }
         else /* netconn_connect(..) != ERR_OK */
         {
+            if (TS) printf("[%lu] ", HAL_GetTick());
             printf( "netconn_connect() failed: %d\r\n", err );
         }
         netconn_delete(conn);
     }
     else
     {
+        if (TS) printf("[%lu] ", HAL_GetTick());
         printf( "netconn_new() returned NULL\r\n" );
     }
 
+    if (TS) printf("[%lu] ", HAL_GetTick());
     printf( "http_client_netconn_request() exiting\r\n" );
 }
 
