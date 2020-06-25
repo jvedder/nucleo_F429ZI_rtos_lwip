@@ -76,18 +76,13 @@ static void Netif_Config(void);
   */
 int main(void)
 {
-  /* STM32F4xx HAL library initialization:
-       - Configure the Flash ART accelerator on ITCM interface
-       - Configure the Systick to generate an interrupt each 1 msec
-       - Set NVIC Group Priority to 4
-       - Global MSP (MCU Support Package) initialization
-     */
+  /* STM32F4xx HAL library initialization */
   HAL_Init();  
   
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
   
-  /* Configure the board-specific LEDs, Button, and ST-Link UART */
+  /* Configure the board-specific functions */
   BSP_Init();
 
   /* Hello world */

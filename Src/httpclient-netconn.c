@@ -10,7 +10,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include "bsp.h"
 #include "lwip/apps/fs.h"
 #include "string.h"
 #include "api_key.h"
@@ -196,7 +196,7 @@ static void http_client_netconn_thread(void *arg)
 {
     for(;;)
     {
-        if (BSP_PB_GetState(BUTTON_USER) == 1)
+        if (BSP_Button_GetState() == 1)
         {
             http_client_netconn_request();
             osDelay(2000);
