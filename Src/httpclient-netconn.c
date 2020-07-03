@@ -47,11 +47,8 @@ static uint16_t    length = 0;
 #define JSON_OFF "{\"on\":false}\r\n"
 
 #define LEN_ON   "Content-Length: 31\r\n"
-#define JSON_ON  "{\"on\":true,\"bri\":100,\"ct\":366}\r\n"
+#define JSON_ON  "{\"on\":true,\"bri\":254,\"ct\":366}\r\n"
 
-//static const char REQUEST[] = "GET / HTTP/1.1\r\nHost: 192.168.1.30:8080\r\nConnection: close\r\nAccept-Encoding: identity\r\n\r\n";
-//static const char LIGHT_ON[] = "PUT /api/" API_KEY "/lights/9/state HTTP/1.1\r\n\r\n{\"on\":true,\"bri\":100,\"ct\": 366}";
-//static const char LIGHT_OFF[] = "PUT /api/" API_KEY "/lights/9/state HTTP/1.1\r\n\r\n{\"on\":false}";
 static const char LIGHT_ON[]  = "PUT /api/" API_KEY "/lights/9/state HTTP/1.1\r\n" HOST CONN TYPE AGENT LEN_ON  "\r\n" JSON_ON;
 static const char LIGHT_OFF[] = "PUT /api/" API_KEY "/lights/9/state HTTP/1.1\r\n" HOST CONN TYPE AGENT LEN_OFF "\r\n" JSON_OFF;
 
