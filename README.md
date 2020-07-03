@@ -8,10 +8,11 @@ working on it.
 I have a working example in `httpclient-netconn.c/.h` to `POST` 
 a small snippet of JSON data to a Phillips HUE server. The code will toggle light #9
 on/off with pressing the blue user button on the Nucleo board. The IP address and 
-JSON derails are are hard-coded.
+JSON details are are hard-coded.
 
 Note: you need to add `#define API_KEY "string_constant"` in `Inc/api_key.h`, which is 
-not included in the  repo. See the Phillips Hue Developers [Getting Started](https://developers.meethue.com/develop/get-started-2/) documentation to create 
+not included in the  repo. See the Phillips Hue Developers
+[Getting Started](https://developers.meethue.com/develop/get-started-2/) documentation to create 
 an API key.
 
 The `httpserver-netconn.c` web server in the original example project has been
