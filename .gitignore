@@ -1,9 +1,16 @@
-#ignore the Setting Folder
+# ignore the Setting Folder
 .settings/
 
-#ignore the build output folder
+# ignore the build output folder
 Debug/
 
-#do not include key material
+# ignore the CubeMX code generation sub folder. 
+# The .ioc project file is archived in the repo root
+CubeMX/
+
+# ignore worksheet lock files
+.~lock.*
+
+# do not include key material
 api_key.h
 
