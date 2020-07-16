@@ -31,3 +31,6 @@ Please see the ST Microelectronics licenses in their respective files and `st_re
 I appreciate the support of [Ac6](https://www.ac6.fr/) towards free compiler tools for the STM32
 microcontrollers and the availability of Eclipse, FreeRTOS, and LWIP as free and open software.
 
+## License:
+
+[MIT License](../master/LICENSE.txt)
